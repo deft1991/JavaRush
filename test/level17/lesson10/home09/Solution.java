@@ -1,8 +1,6 @@
 package com.javarush.test.level17.lesson10.home09;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,18 +16,38 @@ import java.util.List;
 Метод joinData должен вызываться в main. Все исключения обработайте в методе main.
 */
 
-public class Solution {
+public class Solution
+{
     public static List<String> allLines = new ArrayList<String>();
     public static List<String> forRemoveLines = new ArrayList<String>();
 
-    public static void main(String[] args) throws IOException
+    public static void main(String[] args)
     {
+    }
+
+    public void joinData() throws IOException
+    {
+        ArrayList<String> rez = new ArrayList<String>();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String firstFileName = reader.readLine();
         String lastFileName = reader.readLine();
-    }
+        BufferedReader firstFile = new BufferedReader(new FileReader(firstFileName));
+        BufferedReader lastFile = new BufferedReader(new FileReader(lastFileName));
+        String lineOne, lineTwo;
+        while ((lineOne = firstFile.readLine()) != null)
+        {
+            allLines.add(lineOne);
+        }
+        while ((lineTwo = lastFile.readLine()) != null)
+        {
+            forRemoveLines.add(lineTwo);
+        }
 
-    public void joinData () throws CorruptedDataException {
 
+        for (int i = 0; i < allLines.size(); i++)
+            System.out.println(allLines.get(i));
+        for (int i = 0; i < forRemoveLines.size(); i++)
+            System.out.println(forRemoveLines.get(i));
     }
 }
+
