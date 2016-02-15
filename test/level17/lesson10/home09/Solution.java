@@ -4,16 +4,16 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/* РўСЂР°РЅР·Р°РєС†РёРѕРЅРЅРѕСЃС‚СЊ
-РЎРґРµР»Р°С‚СЊ РјРµС‚РѕРґ joinData С‚СЂР°РЅР·Р°РєС†РёРѕРЅРЅС‹Рј, С‚.Рµ. РµСЃР»Рё РїСЂРѕРёР·РѕС€РµР» СЃР±РѕР№, С‚Рѕ РґР°РЅРЅС‹Рµ РЅРµ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅС‹.
-1. РЎС‡РёС‚Р°С‚СЊ СЃ РєРѕРЅСЃРѕР»Рё 2 РёРјРµРЅРё С„Р°Р№Р»Р°
-2. РЎС‡РёС‚Р°С‚СЊ РїРѕСЃС‚СЂРѕС‡РЅРѕ РґР°РЅРЅС‹Рµ РёР· С„Р°Р№Р»РѕРІ. РР· РїРµСЂРІРѕРіРѕ С„Р°Р№Р»Р° - РІ allLines, РёР· РІС‚РѕСЂРѕРіРѕ - РІ forRemoveLines
-Р’ РјРµС‚РѕРґРµ joinData:
-3. Р•СЃР»Рё СЃРїРёСЃРѕРє allLines СЃРѕРґРµСЂР¶РёС‚ РІСЃРµ СЃС‚СЂРѕРєРё РёР· forRemoveLines, С‚Рѕ СѓРґР°Р»РёС‚СЊ РёР· СЃРїРёСЃРєР° allLines РІСЃРµ СЃС‚СЂРѕРєРё, РєРѕС‚РѕСЂС‹Рµ РµСЃС‚СЊ РІ forRemoveLines
-4. Р•СЃР»Рё СЃРїРёСЃРѕРє allLines РќР• СЃРѕРґРµСЂР¶РёС‚ РєР°РєРёС…-Р»РёР±Рѕ СЃС‚СЂРѕРє, РєРѕС‚РѕСЂС‹Рµ РµСЃС‚СЊ РІ forRemoveLines, С‚Рѕ
-4.1. РѕС‡РёСЃС‚РёС‚СЊ allLines РѕС‚ РґР°РЅРЅС‹С…
-4.2. РІС‹Р±СЂРѕСЃРёС‚СЊ РёСЃРєР»СЋС‡РµРЅРёРµ CorruptedDataException
-РњРµС‚РѕРґ joinData РґРѕР»Р¶РµРЅ РІС‹Р·С‹РІР°С‚СЊСЃСЏ РІ main. Р’СЃРµ РёСЃРєР»СЋС‡РµРЅРёСЏ РѕР±СЂР°Р±РѕС‚Р°Р№С‚Рµ РІ РјРµС‚РѕРґРµ main.
+/* Транзакционность
+Сделать метод joinData транзакционным, т.е. если произошел сбой, то данные не должны быть изменены.
+1. Считать с консоли 2 имени файла
+2. Считать построчно данные из файлов. Из первого файла - в allLines, из второго - в forRemoveLines
+В методе joinData:
+3. Если список allLines содержит все строки из forRemoveLines, то удалить из списка allLines все строки, которые есть в forRemoveLines
+4. Если список allLines НЕ содержит каких-либо строк, которые есть в forRemoveLines, то
+4.1. очистить allLines от данных
+4.2. выбросить исключение CorruptedDataException
+Метод joinData должен вызываться в main. Все исключения обработайте в методе main.
 */
 
 public class Solution
@@ -21,33 +21,47 @@ public class Solution
     public static List<String> allLines = new ArrayList<String>();
     public static List<String> forRemoveLines = new ArrayList<String>();
 
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException
     {
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String lineOne, lineTwo;
+        try
+        {
+            String firstFileName = reader.readLine();
+            String lastFileName = reader.readLine();
+            reader.close();
+            BufferedReader firstFile = new BufferedReader(new FileReader(firstFileName));
+            while ((lineOne = firstFile.readLine()) != null)
+            {
+                allLines.add(lineOne);
+            }
+            firstFile.close();
+
+            BufferedReader lastFile = new BufferedReader(new FileReader(lastFileName));
+            while ((lineTwo = lastFile.readLine()) != null)
+            {
+                forRemoveLines.add(lineTwo);
+            }
+            lastFile.close();
+
+            new Solution().joinData();
+        }
+        catch (Exception ignore)
+        {
+        }
     }
 
-    public void joinData() throws IOException
+    public static void joinData() throws CorruptedDataException
     {
-        ArrayList<String> rez = new ArrayList<String>();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String firstFileName = reader.readLine();
-        String lastFileName = reader.readLine();
-        BufferedReader firstFile = new BufferedReader(new FileReader(firstFileName));
-        BufferedReader lastFile = new BufferedReader(new FileReader(lastFileName));
-        String lineOne, lineTwo;
-        while ((lineOne = firstFile.readLine()) != null)
+        if (allLines.containsAll(forRemoveLines))
         {
-            allLines.add(lineOne);
-        }
-        while ((lineTwo = lastFile.readLine()) != null)
+            allLines.removeAll(forRemoveLines);
+        } else
         {
-            forRemoveLines.add(lineTwo);
+            allLines.clear();
+            throw new CorruptedDataException();
         }
-
-
-        for (int i = 0; i < allLines.size(); i++)
-            System.out.println(allLines.get(i));
-        for (int i = 0; i < forRemoveLines.size(); i++)
-            System.out.println(forRemoveLines.get(i));
     }
 }
 
