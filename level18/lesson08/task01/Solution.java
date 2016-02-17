@@ -1,4 +1,4 @@
-package com.javarush.test.level18.lesson08.task01;
+package com.javarush.level18.lesson08.task01;
 
 /* Wrapper (Decorator)
 Разберись, что делает программа
