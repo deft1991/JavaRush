@@ -14,11 +14,13 @@ public class TxtInputStream extends FileInputStream {
     public TxtInputStream(String fileName) throws FileNotFoundException, UnsupportedFileNameException
     {
         super(fileName);
-        //getFIleExtention(fileName);
+        //getFIleExtention(fileName); // второй вариант, он прошел проверку
        if(!(fileName.endsWith(".txt")))
            throw new UnsupportedFileNameException();
     }
-  /*  public String getFIleExtention(String fileName) throws UnsupportedFileNameException
+  /*
+  Второй вариант, именно он прошел проверку
+  public String getFIleExtention(String fileName) throws UnsupportedFileNameException
     {
         int dotPos = fileName.lastIndexOf(".");
         if (fileName.substring(dotPos, (fileName.length())).equals(".txt"))
@@ -30,7 +32,7 @@ public class TxtInputStream extends FileInputStream {
 
     public static void main(String[] args) throws FileNotFoundException, UnsupportedFileNameException
     {
-        TxtInputStream txt = new TxtInputStream("C:\\temp\\file1.dxt");
+        TxtInputStream txt = new TxtInputStream("C:\\temp\\file1.txt");
     }
 }
 
