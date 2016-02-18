@@ -1,8 +1,7 @@
-package com.javarush.level17.lesson10.bonus01;
+package com.javarush.test.level17.lesson10.bonus01;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,70 +31,68 @@ id соответствует индексу в списке
 Пример параметров: -c Миронов м 15/04/1990
 */
 
-public class Solution
-{
+public class Solution {
     public static List<Person> allPeople = new ArrayList<Person>();
-
-    static
-    {
-
+    static {
         allPeople.add(Person.createMale("Иванов Иван", new Date()));  //сегодня родился    id=0
         allPeople.add(Person.createMale("Петров Петр", new Date()));  //сегодня родился    id=1
     }
 
-    public static void main(String[] args) throws IOException
+    public static void main(String[] args) throws IOException, ParseException
     {
-        for (int i = 0; i < args.length; i++)
+        if (args.length < 2)
         {
-                //start here - начни тут
-                BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-                //String s = reader.readLine();
-                if (args[i].equals("c"))
-                {
-                    String name = reader.readLine();
-                    String sex = reader.readLine();
-                    Date d = new Date(reader.readLine());
-                    create(name, sex, d);
-                }
-                if (args[i].equals("u"))
-                {
-                    int id = Integer.parseInt(reader.readLine());
-                    String name = reader.readLine();
-                    Sex sex = Sex.valueOf(reader.readLine());
-                    Date d = new Date(reader.readLine());
-                    update(id, name, sex, d);
-                }
-                if (args[i].equals("d"))
-                {
-                    int id = Integer.parseInt(reader.readLine());
-                    delete(id);
-                }
-                if (args[i].equals("i"))
-                {
-                    int id = Integer.parseInt(reader.readLine());
-                    index(id);
-                }
-            }
+            return;
         }
+        if (args[0].equals("-c"))
+        {
+            String name = args[1] + " " + args[2];
+            String sex = args[3];
+            String d = args[4];
+            create(name, sex, d);
+        }
+        if (args[0].equals("-u"))
+        {
+            int id = Integer.parseInt(args[1]);
+            String name = args[2] + " " + args[3];
+            String sex = args[4];
+            Date d = new Date(args[5]);
+            update(id, name, sex, d);
+        }
+        if (args[0].equals("-d"))
+        {
+            int id = Integer.parseInt(args[1]);
+            delete(id);
+        }
+        if (args[0].equals("-i"))
+        {
+            int id = Integer.parseInt(args[1]);
+            index(id);
+        }
+    }
 
 
-    public static void create(String name, String sex, Date d)
+    public static void create(String name, String sex, String d) throws ParseException
     {
         if (sex.equals("м"))
         {
-            allPeople.add(Person.createMale(name, d));
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+            Date date = sdf.parse(d);
+            allPeople.add(Person.createMale(name, date));
             int id = allPeople.size() - 1;
             System.out.println(id);
         } else if (sex.equals("ж"))
         {
-            allPeople.add(Person.createFemale(name, d));
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+            Date date = sdf.parse(d);
+            allPeople.add(Person.createFemale(name, date));
             int id = allPeople.size() - 1;
             System.out.println(id);
         }
 
     }
 
-    public static void update(int id, String name, Sex sex, Date bd)
+    public static void update(int id, String name, String sex, Date bd)
     {
         if (sex.equals("м"))
         {
@@ -109,24 +106,24 @@ public class Solution
     public static void delete(int id)
     {
         Person pers = allPeople.get(id);
-        pers.setName(null);
         pers.setBirthDay(null);
-        pers.setSex(null);
         allPeople.set(id, pers);
     }
 
-// выводит на экран информацию о человеке с id: name sex (м/ж) bd (формат 15-Apr-1990)
+    // выводит на экран информацию о человеке с id: name sex (м/ж) bd (формат 15-Apr-1990)
     public static void index(int id)
     {
         Person pers = allPeople.get(id);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy",Locale.ENGLISH);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
         if (pers.getSex().equals(Sex.MALE))
         {
-            System.out.println(pers.getName() + " " + "М"+" "+simpleDateFormat.format(pers.getBirthDay()));
+            System.out.println(pers.getName() + " " + "М" + " " + simpleDateFormat.format(pers.getBirthDay()));
         }
         if (pers.getSex().equals(Sex.FEMALE))
         {
-            System.out.println(pers.getName() + " " + "Ж" +" "+ simpleDateFormat.format(pers.getBirthDay()));
+            System.out.println(pers.getName() + " " + "Ж" + " " + simpleDateFormat.format(pers.getBirthDay()));
         }
-    }
+    } //start here - начни тут
 }
+
+

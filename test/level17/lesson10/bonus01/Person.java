@@ -1,4 +1,4 @@
-package com.javarush.level17.lesson10.bonus01;
+package com.javarush.test.level17.lesson10.bonus01;
 
 import java.util.Date;
 
