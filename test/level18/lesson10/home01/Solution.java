@@ -7,21 +7,30 @@ package com.javarush.test.level18.lesson10.home01;
 Закрыть потоки. Не использовать try-with-resources
 */
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Solution
 {
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException
     {
         int count = 0;
-        char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-                'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
-                's', 't', 'u', 'v', 'q', 'x', 'y', 'z'};
-        for (int i = 0; i < args.length; i++)
+        if (args.length > 0)
         {
-            for (int j = 0; j < alphabet.length; j++)
+            FileInputStream in = new FileInputStream(args[0]);
+
+            while (in.available() > 0)
             {
-                if (args[i].toLowerCase().equals(alphabet[j]))
+                String stroka = String.valueOf((char)in.read());
+                Pattern pattern = Pattern.compile("[a-zA-z]");
+                Matcher matcher = pattern.matcher(stroka);
+                if (matcher.find())
                     count++;
             }
+            in.close();
         }
+        System.out.println(count);
     }
 }
