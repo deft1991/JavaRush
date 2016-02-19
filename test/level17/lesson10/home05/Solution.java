@@ -4,41 +4,34 @@ package com.javarush.test.level17.lesson10.home05;
 synchronized существенно замедляет программу, поэтому убери избыточность synchronized внутри методов
 */
 
-public class Solution
-{
+public class Solution {
     char[] value;
     int count;
 
-    public Solution append(CharSequence s)
-    {
-        synchronized (Solution.class)
-        {
-            if (s == null)
-            {
+    public Solution append(CharSequence s) {
 
-                s = "null";
+            if (s == null) {
+
+                    s = "null";
 
             }
 
-            if (s instanceof String)
-            {
+            if (s instanceof String) {
 
-                return this.append((String) s);
-
-            }
-
-            if (s instanceof Solution)
-            {
-
-                return this.appendThis((Solution) s);
+                    return this.append((String) s);
 
             }
+
+            if (s instanceof Solution) {
+
+                    return this.appendThis((Solution) s);
+
+
         }
         return this.append(s);
     }
 
-    public synchronized Solution appendThis(Solution s)
-    {
+    public synchronized Solution appendThis(Solution s) {
         //do something here....
         return this;
     }
@@ -50,28 +43,21 @@ public class Solution
                     new java.io.ObjectStreamField("shared", Boolean.TYPE),
             };
 
-    private synchronized void writeObject(java.io.ObjectOutputStream s) throws java.io.IOException
-    {
+    private synchronized void writeObject(java.io.ObjectOutputStream s) throws java.io.IOException {
         java.io.ObjectOutputStream.PutField fields = s.putFields();
-        synchronized (fields)
-        {
+
             fields.put("value", value);
             fields.put("count", count);
             fields.put("shared", false);
-        }
-        synchronized (s)
-        {
+
             s.writeFields();
-        }
     }
 
-    private void readObject(java.io.ObjectInputStream s) throws java.io.IOException, ClassNotFoundException
-    {
-        synchronized (new java.io.IOException())
-        {
+    private void readObject(java.io.ObjectInputStream s) throws java.io.IOException, ClassNotFoundException {
+
             java.io.ObjectInputStream.GetField fields = s.readFields();
             value = (char[]) fields.get("value", null);
             count = fields.get("count", 0);
-        }
+
     }
 }
