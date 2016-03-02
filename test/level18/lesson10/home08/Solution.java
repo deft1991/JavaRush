@@ -1,13 +1,11 @@
 package com.javarush.test.level18.lesson10.home08;
 
 import java.io.*;
-import java.lang.management.BufferPoolMXBean;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /* Нити и байты
-+Читайте с консоли имена файлов, пока не будет введено слово "exit"
-+Передайте имя файла в нить ReadThread
+Читайте с консоли имена файлов, пока не будет введено слово "exit"
+Передайте имя файла в нить ReadThread
 Нить ReadThread должна найти байт, который встречается в файле максимальное число раз, и добавить его в словарь resultMap,
 где параметр String - это имя файла, параметр Integer - это искомый байт.
 Закрыть потоки. Не использовать try-with-resources
@@ -17,15 +15,36 @@ public class Solution
 {
     public static Map<String, Integer> resultMap = new HashMap<String, Integer>();
 
-    public static void main(String[] args) throws IOException
+    public static void main(String[] args)
     {
-        String fileName;
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        while (!(fileName = reader.readLine()).equals("exit"))
+        ArrayList<String> list = new ArrayList<>();
+        try
         {
-            ReadThread thread = new ReadThread(fileName);
+            String fileName;
+            while (!(fileName = reader.readLine()).equals("exit"))
+            {
+                list.add(fileName);
+            }
+            reader.close();
+            for (String s : list)
+            {
+                ReadThread rt = new ReadThread(s);
+                rt.start();
+                rt.join();
+            }
+            // System.out.println(resultMap);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
         }
     }
+
     public static class ReadThread extends Thread
     {
         private String fileName;
@@ -33,61 +52,44 @@ public class Solution
         public ReadThread(String fileName)
         {
             this.fileName = fileName;
-            start();
-            //implement constructor body
         }
 
-        // implement file reading here - реализуйте чтение из файла тут
         @Override
-        public  void run()
+        public void run()
         {
-            poisk(fileName);
-        }
-    }
+            ArrayList<Integer> list = new ArrayList<>();
+            try
+            {
+                FileInputStream stream = new FileInputStream(fileName);
+                while (stream.available() > 0)
+                {
+                    int i = stream.read();
+                    list.add(i);
+                }
+                stream.close();
 
-    public static void poisk(String fileName)
-    {
-        try
-        {
-            FileInputStream stream = new FileInputStream(fileName);
-            HashMap<Byte, Integer> map = new HashMap<Byte, Integer>();
-            byte[] buffer = new byte[stream.available()];
-            if (stream.available() > 0)
-                stream.read(buffer);
-            stream.close();
-            int count = 0, max = 0;
-            for (int i = 0; i < buffer.length; i++)
-            {
-                for (int j = 0; j < buffer.length - 1; j++)
+                int max = 0, find = 0;
+
+                for (int i = 0; i < list.size(); i++)
                 {
-                    if (buffer[i] == buffer[j])
-                        count++;
-                }
-                map.put(buffer[i], count);
-                count=0;
-            }
-            for (Map.Entry<Byte, Integer> pair : map.entrySet())
-            {
-                if (pair.getValue() > max)
-                {
-                    max = pair.getValue();
-                }
-            }
-            synchronized (resultMap)
-            {
-                for (Map.Entry<Byte, Integer> pair : map.entrySet())
-                {
-                    if (pair.getValue().equals(max))
+                    int freq = Collections.frequency(list, list.get(i));
+                    if (freq > max)
                     {
-                        resultMap.put(fileName, (int) pair.getKey());
+                        max = freq;
+                        find = list.get(i);
                     }
                 }
+                resultMap.put(fileName, find);
             }
-            stream.close();
+            catch (FileNotFoundException e)
+            {
+                e.printStackTrace();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
         }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+        // implement file reading here - реализуйте чтение из файла тут
     }
 }
