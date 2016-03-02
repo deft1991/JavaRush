@@ -57,26 +57,25 @@ public class Solution
         @Override
         public void run()
         {
-            ArrayList<Integer> list = new ArrayList<>();
+            ArrayList<Integer> listInt = new ArrayList<>();
             try
             {
                 FileInputStream stream = new FileInputStream(fileName);
                 while (stream.available() > 0)
                 {
-                    int i = stream.read();
-                    list.add(i);
+                    listInt.add(stream.read());
                 }
                 stream.close();
 
                 int max = 0, find = 0;
 
-                for (int i = 0; i < list.size(); i++)
+                for (int i = 0; i < listInt.size(); i++)
                 {
-                    int freq = Collections.frequency(list, list.get(i));
+                    int freq = Collections.frequency(listInt, listInt.get(i));
                     if (freq > max)
                     {
                         max = freq;
-                        find = list.get(i);
+                        find = listInt.get(i);
                     }
                 }
                 resultMap.put(fileName, find);
