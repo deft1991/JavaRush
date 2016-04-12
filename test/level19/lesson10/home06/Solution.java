@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,23 +57,18 @@ public class Solution
         BufferedReader br = new BufferedReader(new FileReader(fileName));
         String stroka;
         String q;
-        ArrayList<String>list = new ArrayList<>();
         while ((stroka = br.readLine()) != null)
         {
-           // System.out.println(stroka);
             String[] slova = stroka.split(" ");
-            for (int i=0;i<slova.length;i++)
+            for (int i = 0; i < slova.length; i++)
             {
                 for (Map.Entry<Integer, String> pair : map.entrySet())
                 {
                     if (slova[i].equals(pair.getKey().toString()))
-                    {
-                        q = pair.getValue();
-                        slova[i] = q;
-                    }
+                        slova[i] = pair.getValue();
                 }
             }
-            for (int i=0;i<slova.length;i++)
+            for (int i = 0; i < slova.length; i++)
             {
                 System.out.print(slova[i] + " ");
             }
