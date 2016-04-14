@@ -30,69 +30,57 @@ import java.util.ArrayList;
 
 public class Solution
 {
-    public static ArrayList<String> list = new ArrayList<>();
-
     public static void main(String[] args) throws Exception
     {
-        String quantity=String.valueOf(args[args.length-1]);
-        String price=String.valueOf(args[args.length-2]);
-        String name="";
-        for(int i=1;i<args.length-2;i++){
-            name+=args[i]+" ";
-        }
-        list.add(name.substring(0,name.length()-1));
-        list.add(price);
-        list.add(quantity);
-        findId();
-
+        findId(args);
     }
 
-   /* public static void createListFields(String stroka) throws IOException
+    public static void findId(String[] args) throws IOException
     {
-        String[] arguments = stroka.split(" ");
-        String quantity = arguments[arguments.length - 1];
-        String price = arguments[arguments.length - 2];
+        ArrayList<String> list = new ArrayList<>();
+        ArrayList<String> listAll = new ArrayList<>();
+        String quantity = String.valueOf(args[args.length - 1]);
+        String price = String.valueOf(args[args.length - 2]);
         String name = "";
-        for (int i = 1; i < arguments.length - 2; i++)
+        for (int i = 1; i < args.length - 2; i++)
         {
-            name += arguments[i] + " ";
+            name += args[i] + " ";
         }
-        String productName = name.substring(0, name.length()-1);
-        list.add(productName);
+        list.add(name.substring(0, name.length() - 1));
         list.add(price);
         list.add(quantity);
-    }*/
-
-    public static void findId() throws IOException
-    {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String fileName;
         fileName = reader.readLine();
         BufferedReader br = new BufferedReader(new FileReader(fileName));
         String line;
-        int maxId= 0;
+        int maxId = 0;
         while ((line = br.readLine()) != null)
         {
-            String[]massiv = line.split(" ");
-            if (massiv[0].length()<8)
+            listAll.add(line);
+            String[] massiv = line.split(" ");
+            if (massiv[0].length() < 8)
             {
                 if (maxId < Integer.parseInt(massiv[0]))
                     maxId = Integer.parseInt(massiv[0]);
-            }
-            else{
-                String znach = massiv[0].substring(0,8);
+            } else
+            {
+                String znach = massiv[0].substring(0, 8);
                 if (maxId < Integer.parseInt(znach))
                     maxId = Integer.parseInt(znach);
             }
         }
         reader.close();
         br.close();
-        FileWriter fileWriter = new FileWriter(fileName, true);
-        String idForWrite = formatPriceAndId(String.valueOf(maxId+1));
+        FileWriter fileWriter = new FileWriter(fileName);
+        String idForWrite = formatPriceAndId(String.valueOf(maxId + 1));
         String nameForWrite = formatName(list.get(0));
         String priceForWrite = formatPriceAndId(list.get(1));
         String quantutyForWrite = formatQuantity(list.get(2));
-        fileWriter.write("\n" + idForWrite + nameForWrite + priceForWrite + quantutyForWrite);
+        String allData = idForWrite + nameForWrite + priceForWrite + quantutyForWrite;
+        listAll.add(allData);
+        for (String s : listAll)
+            fileWriter.write(s + "\n");
         fileWriter.close();
 
     }
