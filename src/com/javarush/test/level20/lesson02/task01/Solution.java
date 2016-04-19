@@ -27,7 +27,9 @@ public class Solution {
 
             Human somePerson = new Human();
             somePerson.load(inputStream);
-           // System.out.println(somePerson.name+" "+ivanov.name);
+            System.out.println(somePerson.name+" "+ivanov.name);
+            System.out.println(somePerson.assets);
+            System.out.println(ivanov.assets);
             //check here that ivanov equals to somePerson - проверьте тут, что ivanov и somePerson равны
             inputStream.close();
 
