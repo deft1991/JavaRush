@@ -27,6 +27,7 @@ public class Solution {
 
             Human somePerson = new Human();
             somePerson.load(inputStream);
+           // System.out.println(somePerson.name+" "+ivanov.name);
             //check here that ivanov equals to somePerson - проверьте тут, что ivanov и somePerson равны
             inputStream.close();
 
@@ -55,10 +56,31 @@ public class Solution {
         }
 
         public void save(OutputStream outputStream) throws Exception {
+            PrintWriter printWriter = new PrintWriter(outputStream);
+            String checkName = name!=null ? "Yes":"No";
+            if (checkName.equals("Yes")){
+                printWriter.println(checkName);
+                printWriter.println(name);
+                if (assets.size()>0){
+                    for(Asset as : assets)
+                    printWriter.println(as.getName());
+                }
+            }
+            printWriter.flush();
+            printWriter.close();
             //implement this method - реализуйте этот метод
         }
 
         public void load(InputStream inputStream) throws Exception {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            String check;
+            if ((check=reader.readLine()).equals("Yes")){
+                name = reader.readLine();
+                String assetsName;
+                while((assetsName=reader.readLine())!=null)
+                assets.add(new Asset(assetsName));
+            }
+            reader.close();
             //implement this method - реализуйте этот метод
         }
     }
