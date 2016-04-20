@@ -27,7 +27,7 @@ public class Solution
             user1.setLastName("Sergey");
             user1.setMale(true);
             user1.setCountry(User.Country.RUSSIA);
-            //GregorianCalendar cal = new GregorianCalendar(1991, 02, 05);
+
             user1.setBirthDate(dateFormat.parse("05.03.1991"));
             javaRush.users.add(user1);
             User user2 = new User();
@@ -35,7 +35,7 @@ public class Solution
             user2.setLastName("Valeria");
             user2.setMale(false);
             user2.setCountry(User.Country.UKRAINE);
-            //GregorianCalendar cal2 = new GregorianCalendar(1991, 02, 14);
+
             user2.setBirthDate(dateFormat.parse("14.03.1993"));
             javaRush.users.add(user2);
 
@@ -95,14 +95,14 @@ public class Solution
                     if (users.get(i).getBirthDate() != null)
                     {
                         pw.println("BirthDate");
-                        pw.println(format.format(users.get(i).getBirthDate()) );
+                        pw.println(format.format(users.get(i).getBirthDate()));
                     }
-                    if (users.get(i).isMale()==true)
+                    if (users.get(i).isMale() == true)
                     {
                         pw.println("Male");
                         pw.println(users.get(i).isMale());
                     }
-                    if (users.get(i).isMale()==false)
+                    if (users.get(i).isMale() == false)
                     {
                         pw.println("Male");
                         pw.println(users.get(i).isMale());
