@@ -5,18 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by Golitsyn.SN on 04.05.2016.
  */
-/*
-Задание 11
-С классом Hippodrome почти закончили.
-Добавь в конец метода main вызов run().
 
-Подсказка:
-run() - это нестатический метод, поэтому вызвать его можно только у объекта.
-А где взять объект?
-
-Подсказка 2:
-game.run();
-*/
 public class Hippodrome {
     public ArrayList<Horse> horses = new ArrayList<Horse>();
     public static Hippodrome game;
@@ -47,18 +36,7 @@ public class Hippodrome {
         System.out.println();
         System.out.println();
     }
-/*
-Задание 15
-Добавим определение победителя.
-В классе Hippodrome сделаем два метода:
-public Horse getWinner() и public void printWinner()
 
-Метод getWinner должен возвращать лошадь пробежавшую самую большую дистанцию.
-Метод printWinner выводит на экран имя победителя в виде:
-Winner is <NAME>!
-Пример:
-Winner is Lucky!
-*/
     public Horse getWinner(){
         double maxDist = Double.MIN_VALUE;
         int index=0;
