@@ -10,9 +10,6 @@ import java.util.Map;
 Реализуйте логику записи в файл и чтения из файла для карты properties.
 */
 public class Solution {
-    public static void main(String[] args) {
-
-    }
     public static Map<String, String> properties = new HashMap<>();
 
     public void fillInPropertiesMap() {
