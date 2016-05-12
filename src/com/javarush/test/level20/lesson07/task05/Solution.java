@@ -1,8 +1,6 @@
 package com.javarush.test.level20.lesson07.task05;
 
 import java.io.*;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 /* Переопределение сериализации
