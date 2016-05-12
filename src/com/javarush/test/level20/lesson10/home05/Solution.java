@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 public class Solution  {
     public static void main(String[] args) {
         try {
-            Solution s = new Solution();
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("temp.tmp"));
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("temp.tmp"));
             Person savedPerson = new Person("qqq", "aaa", "russia", Sex.MALE);
