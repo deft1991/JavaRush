@@ -23,7 +23,7 @@ public class Solution {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o.getClass()!= this.getClass()) return false;
+        if (o instanceof Solution) return false;
 
         Solution solution1 = (Solution) o;
 
