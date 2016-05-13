@@ -14,7 +14,20 @@ import java.io.*;
 */
 public class Solution implements Serializable, AutoCloseable {
     public static void main(String[] args) {
-
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("temp.tmp"));
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("temp.tmp"));
+            Solution savedObject = new Solution("qwerty");
+            savedObject.writeObject("OBJECT");
+            oos.writeObject(savedObject);
+            Solution loadedObject = (Solution) ois.readObject();
+            System.out.println(savedObject.stream);
+            System.out.println(loadedObject.stream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
     private FileOutputStream stream;
 

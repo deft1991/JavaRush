@@ -10,7 +10,7 @@ public class Field {
     int height;
     int matrix[][];
 
-    Field(int width,int height){
+   public Field(int width,int height){
         this.width = width;
         this.height=height;
         matrix = new int[height][width];
