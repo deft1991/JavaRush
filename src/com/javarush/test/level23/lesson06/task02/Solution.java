@@ -6,13 +6,6 @@ package com.javarush.test.level23.lesson06.task02;
 */
 public class Solution {
 
-    public static final class Constants {
-        public static final String SERVER_IS_NOT_ACCESSIBLE_FOR_NOW = "Server is not accessible for now.";
-        public static final String USER_IS_NOT_AUTHORIZED = "User is not authorized.";
-        public static final String USER_IS_BANNED = "User is banned.";
-        public static final String ACCESS_IS_DENIED = "Access is denied.";
-    }
-
     public class ServerNotAccessibleException extends Exception {
         public ServerNotAccessibleException() {
             super(Constants.SERVER_IS_NOT_ACCESSIBLE_FOR_NOW);
@@ -51,5 +44,12 @@ public class Solution {
         public RestrictionException(Throwable cause) {
             super(Constants.ACCESS_IS_DENIED, cause);
         }
+    }
+
+    public static final class Constants {
+        public static final String SERVER_IS_NOT_ACCESSIBLE_FOR_NOW = "Server is not accessible for now.";
+        public static final String USER_IS_NOT_AUTHORIZED = "User is not authorized.";
+        public static final String USER_IS_BANNED = "User is banned.";
+        public static final String ACCESS_IS_DENIED = "Access is denied.";
     }
 }
