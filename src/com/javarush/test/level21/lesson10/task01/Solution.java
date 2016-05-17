@@ -16,6 +16,10 @@ import java.util.zip.ZipFile;
 Допускаются только текстовые коментарии.
 */
 public class Solution {
+    public static void main(String[] args) {
+        String fileName= "file1.txt";
+        System.out.println(Paths.get(fileName));
+    }
     public static void writeZipEntriesToFile(String zipFileName, String outputFileName) {
         Charset charset = StandardCharsets.UTF_8;
         Path outputFilePath = Paths.get(outputFileName);
