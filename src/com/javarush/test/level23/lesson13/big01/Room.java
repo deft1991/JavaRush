@@ -2,6 +2,7 @@ package com.javarush.test.level23.lesson13.big01;
 
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 /**
  * Основной класс программы.
@@ -109,9 +110,34 @@ public class Room
     public void print()
     {
         //Создаем массив, куда будем "рисовать" текущее состояние игры
+        int[][] matrix = new int[height][width];
+
         //Рисуем все кусочки змеи
+        ArrayList<SnakeSection> sections = new ArrayList<SnakeSection>(snake.getSections());
+        for (SnakeSection snakeSection : sections)
+        {
+            matrix[snakeSection.getY()][snakeSection.getX()] = 1;
+        }
+
+        //Рисуем голову змеи (4 - если змея мертвая)
+        matrix[snake.getY()][snake.getX()] = snake.isAlive() ? 2 : 4;
+
         //Рисуем мышь
+        matrix[mouse.getY()][mouse.getX()] = 3;
+
         //Выводим все это на экран
+        String[] symbols = {" . ", " x ", " X ", "^_^", "RIP"};
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                System.out.print(symbols[matrix[y][x]]);
+            }
+            System.out.println();
+        }
+        System.out.println();
+        System.out.println();
+        System.out.println();
     }
 
     /**
@@ -144,17 +170,22 @@ public class Room
         game.run();
     }
 
+    //Массив "пауз" в зависимости от уровня.
+    private static int[] levelDelay = {1200, 1100, 1000, 500, 480, 460, 440, 420, 400, 380, 360, 340, 320, 300, 285, 270};
 
     /**
      * Прогрмма делает паузу, длинна которой зависит от длинны змеи.
      */
     public void sleep()
     {
-        int delay = snake.getSections().size() == 1 ? 500  : 500 - 20*snake.getSections().size();
-        try {
-            Thread.sleep(delay > 200 ? delay : 200);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        try
+        {
+            int level = snake.getSections().size();
+            int delay = level < 15 ? levelDelay[level] : 250;
+            Thread.sleep(delay);
+        }
+        catch (InterruptedException e)
+        {
         }
     }
 }
