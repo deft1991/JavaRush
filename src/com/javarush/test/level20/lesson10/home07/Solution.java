@@ -1,5 +1,7 @@
 package com.javarush.test.level20.lesson10.home07;
+
 import java.io.*;
+
 /* Переопределение сериализации в потоке
 Сериализация/десериализация Solution не работает.
 Исправьте ошибки не меняя сигнатуры методов и класса.
@@ -13,32 +15,31 @@ import java.io.*;
 6) проверить, что в файле есть данные из п.2 и п.5
 */
 public class Solution implements Serializable, AutoCloseable {
-    public static void main(String[] args) {
-        try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("temp.tmp"));
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("temp.tmp"));
-            Solution savedObject = new Solution("qwerty");
-            savedObject.writeObject("OBJECT");
-            oos.writeObject(savedObject);
-            Solution loadedObject = (Solution) ois.readObject();
-            System.out.println(savedObject.stream);
-            System.out.println(loadedObject.stream);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
     private FileOutputStream stream;
 
     public Solution(String fileName) throws FileNotFoundException {
         this.stream = new FileOutputStream(fileName);
+    }
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        Solution test = new Solution("C:\\temp\\file1.txt");
+       // ObjectOutputStream oos = new ObjectOutputStream(test.stream);
+        test.writeObject("C:\\temp\\file2.txt");
+        ObjectOutputStream oos = new ObjectOutputStream(test.stream);
+        test.writeObject(oos);
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\temp\\file3.txt"));
+        Solution test2 = null;
+        test2.readObject(ois);
+        test2.writeObject("C:\\temp\\file2.txt");
+
+
     }
     public void writeObject(String string) throws IOException {
         stream.write(string.getBytes());
         stream.write("\n".getBytes());
         stream.flush();
     }
+
     private void writeObject(ObjectOutputStream out) throws IOException {
         out.defaultWriteObject();
         out.close();
@@ -48,6 +49,7 @@ public class Solution implements Serializable, AutoCloseable {
         in.defaultReadObject();
         in.close();
     }
+
     @Override
     public void close() throws Exception {
         System.out.println("Closing everything!");
