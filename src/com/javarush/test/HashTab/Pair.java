@@ -16,11 +16,9 @@ public class Pair<T1,T2> {
     public T1 getKey() {
         return key;
     }
-
     public T2 getValue() {
         return value;
     }
-
     public boolean isDeleted() {
         return isDeleted;
     }

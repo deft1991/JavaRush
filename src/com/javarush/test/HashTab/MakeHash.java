@@ -7,4 +7,9 @@ public class MakeHash<T> {
     public int returnHash(T x){
         return x.hashCode();
     }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }
