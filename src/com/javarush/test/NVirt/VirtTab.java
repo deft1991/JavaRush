@@ -5,10 +5,8 @@ package com.javarush.test.NVirt;
  */
 public class VirtTab {
     final static int N = 997; // размер таблицы
-  static Pair[] table = new Pair[N];
 
-    char[] key = "1234567890".toCharArray();
-    int[] value = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 11, 12, 12, 12};
+  static Pair[] table = new Pair[N]; // массив пар
 
     public boolean put(char[] key, int[] value) {
         Pair p = new Pair(key, value);

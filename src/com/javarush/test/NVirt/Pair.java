@@ -4,6 +4,7 @@ package com.javarush.test.NVirt;
  * Created by Golitsyn.SN on 31.05.2016.
  */
 public class Pair {
+    // константы, которые использовал Н.Вирт
     final static int WORDLEN = 32; // максимальная длинна ключей
     final static int NOC = 16; // макс число элементов в слове
     char[] key;
@@ -11,6 +12,8 @@ public class Pair {
     private boolean deleted;
 
     public Pair(){};
+
+    // при создании пары проверяю, что бы значения не превышали допустимые
     public Pair(char[] key, int[] value) throws ArrayIndexOutOfBoundsException {
         if (key.length > WORDLEN)
             throw new ArrayIndexOutOfBoundsException("Слишком длинный ключ");
@@ -31,7 +34,11 @@ public class Pair {
     }
 
     public void setKey(char[] key) {
-        this.key = key;
+        if (key.length > WORDLEN) {
+           // System.out.println("Слишком длинный ключ");
+            throw new IndexOutOfBoundsException("Слишком длинный ключ");
+        }
+       else this.key = key;
     }
 
     public char[] getKey() {
