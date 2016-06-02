@@ -7,26 +7,33 @@ public class TestHashTab {
  static VirtTab vt = new VirtTab();
 
     public static void main(String[] args) {
-      /* for(int i =0;i<vt.table.length;i++){
-            vt.put(randChar(),randInt());
+        // создаем рандомные массивы
+        VirtTab vt = new VirtTab();
+        char[] arrChar = randChar();
+        char[] gettingChar = arrChar;
+        int[]arrInt = randInt();
+        for (char c : arrChar)
+            System.out.print(c+" ");
+        System.out.println();
+        for (int c : arrInt)
+            System.out.print(c+" ");
+        System.out.println();
+        // пара для добавления в таблицу
+        Pair testPair = new Pair(arrChar,arrInt);
+        vt.put(testPair.getKey(),testPair.getValue());
+        System.out.println(vt.put(testPair.getKey(),testPair.getValue()));
+        int[]resultGet = vt.get(gettingChar);
+        for (int c : resultGet)
+            System.out.print(c+" ");
+        System.out.println();
+        vt.del(gettingChar);
+       resultGet= vt.get(gettingChar);
+       try {
+           System.out.println(resultGet.length);
+       }catch (NullPointerException e){
+           System.out.println("resultGet == null");
        }
-        for(int i =0;i<vt.table.length;i++) {
-            System.out.println(vt.table[i].getKey()+" "+ vt.table[i].getKey());
-        }*/
-        char[]c = new char[]{'1','2','3','4','5'};
-        int[] e = new int[]{2, 3, 4, 5, 6};
-        Pair p = new Pair(new char[]{'1','2','3','4','5'},new int[]{2, 3, 4, 5, 6});
-        Pair l = new Pair();
-        l.setKey(c);
 
-        p.setKey(c);
-        System.out.println(p.hashCode());
-        vt.put(p.getKey(), p.getValue());
-        System.out.println(p.getKey()+" "+ p.getValue());
-        System.out.println(vt.get(l.getKey()));
-        vt.del(l.getKey());
-        System.out.println(vt.get(l.getKey()));
-       // vt.put(new char[]{'2','3','4','5','6'}, new int[]{2, 3, 4, 5, 6});
 
     }
    static char[] randChar(){
