@@ -6,7 +6,7 @@ package com.javarush.test.NVirt;
 public class VirtTab {
     final static int N = 997; // размер таблицы
 
-  static Pair[] table = new Pair[N]; // массив пар
+    static Pair[] table = new Pair[N]; // массив пар
 
     public boolean put(char[] key, int[] value) {
         Pair p = new Pair(key, value);
@@ -32,16 +32,17 @@ public class VirtTab {
             return true;
         }
     }
+
     public int[] get(char[] key) {
         Pair p = new Pair();
         p.setKey(key);
         int d = 1;
         int h = p.hashCode();
         try {
-            if (table[h].getKey() == key && !table[h].isDeleted() && table[h] != null)
+            if (table[h].getKey() == key && !table[h].isDeleted())
                 return table[h].getValue();
             for (int i = h + d; i != h; i = (i + 1) % table.length) {
-                if (table[i].getKey() == key && !table[i].isDeleted() && table[i] != null)
+                if (table[i].getKey() == key && !table[i].isDeleted())
                     return table[i].getValue();
                 d += 2;
             }
@@ -50,6 +51,7 @@ public class VirtTab {
             return null;
         }
     }
+
     public boolean del(char[] key) {
         Pair p = new Pair();
         p.setKey(key);
@@ -72,4 +74,6 @@ public class VirtTab {
         }
     }
 
+
 }
+
