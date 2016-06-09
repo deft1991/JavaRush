@@ -16,7 +16,7 @@ public class Solution {
         runTaskBySchedule(new Runnable() {
             @Override
             public void run() {
-                System.out.println("A");
+                System.out.println("HelloWorld");
                 throw new RuntimeException("it's test");
             }
         }, 1_000, TimeUnit.MILLISECONDS

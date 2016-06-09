@@ -24,7 +24,7 @@ public class Solution {
         private int i = 8;
 
         /**
-         * @param out Test.A stream for an externalization
+         * @param out Test.HelloWorld stream for an externalization
          * @throws java.io.IOException
          */
         @Override
@@ -33,7 +33,7 @@ public class Solution {
         }
 
         /**
-         * @param in Test.A stream for a de-externalization
+         * @param in Test.HelloWorld stream for a de-externalization
          * @throws java.io.IOException
          * @throws ClassNotFoundException
          */

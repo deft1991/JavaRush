@@ -5,7 +5,7 @@ import java.io.*;
 /* Найти ошибки
 Почему-то при сериализации/десериализации объекта класса B возникают ошибки.
 Найдите проблему и исправьте ее.
-Класс Test.A не должен реализовывать интерфейсы Serializable и Externalizable.
+Класс Test.HelloWorld не должен реализовывать интерфейсы Serializable и Externalizable.
 Сигнатура класса В не содержит ошибку :)
 Метод main не участвует в тестировании.
 */
@@ -30,7 +30,7 @@ public class Solution implements Serializable {
     }
 
     public static class A {
-        protected String name = "Test.A";
+        protected String name = "Test.HelloWorld";
 
         public A(String name) {
             this.name += name;
