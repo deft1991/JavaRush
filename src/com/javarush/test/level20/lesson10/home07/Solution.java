@@ -15,16 +15,6 @@ import java.io.*;
 6) проверить, что в файле есть данные из п.2 и п.5
 */
 public class Solution implements Serializable, AutoCloseable {
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
-        Solution solution = new Solution("C:\\temp\\file1.txt");
-        FileOutputStream fos = new FileOutputStream("C:\\temp\\file1.txt");
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(solution);
-        oos.flush();
-        oos.close();
-        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\temp\\file1.txt"));
-        Solution des = (Solution) ois.readObject();
-    }
     private FileOutputStream stream;
 
     public Solution(String fileName) throws FileNotFoundException {

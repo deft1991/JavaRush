@@ -10,7 +10,7 @@ import java.util.List;
 public class Space
 {
     //Ширина и высота игрового поля
-    private int width;
+               private int width;
     private int height;
 
     //Космический корабль
