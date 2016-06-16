@@ -16,14 +16,24 @@ public class LoggingStateThread extends Thread {
     @Override
     public void run()
     {
-        State state = this.target.getState();
         System.out.println(state);
-        while (state != State.TERMINATED)
+        State state = this.target.getState();
+
+        while (true)
         {
-            if (state != this.target.getState())
+            if (this.target.getState()== State.RUNNABLE)
             {
                 state = this.target.getState();
                 System.out.println(state);
+                break;
+            }
+        }
+        while (true)
+        {
+            if (this.target.getState()== State.TERMINATED)
+            {
+                System.out.println(this.target.getState());
+                break;
             }
         }
     }
