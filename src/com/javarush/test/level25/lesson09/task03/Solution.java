@@ -13,14 +13,5 @@ java.lang.Exception: ABC
 public class Solution implements Thread.UncaughtExceptionHandler {
     @Override
     public void uncaughtException(Thread t, Throwable e) {
-        t.interrupt();
-        if (e.getCause()==null){
-
-        }
-    }
-
-    public static void main(String[] args) {
-        Solution s = new Solution();
-        Thread t = new Thread((Runnable) s);
     }
 }
