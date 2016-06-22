@@ -28,7 +28,7 @@ public class Solution {
     }
 
     protected void initThreads() {
-        this.thread1 = new Thread(new Task(this, "HelloWorld\tB\tC\tD\tE\tF\tG\tH\tI"), FIRST_THREAD_NAME);
+        this.thread1 = new Thread(new Task(this, "HelloWorld\tCommand\tC\tD\tE\tF\tG\tH\tI"), FIRST_THREAD_NAME);
         this.thread2 = new Thread(new Task(this, "J\tK\tL\tM\tN\tO\tP\tQ\tR\tS\tT\tU\tV\tW\tX\tY\tZ"), SECOND_THREAD_NAME);
         this.thread3 = new Thread(new Task(this, "\t\t"), "3#");
 

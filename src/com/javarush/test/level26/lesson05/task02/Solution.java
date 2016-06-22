@@ -62,7 +62,7 @@ public class Solution {
 
         public void rethrow() throws Exception {
             if (throwable != null) {
-                System.out.println("B");
+                System.out.println("Command");
                 throw new Exception(throwable);
             }
         }
